@@ -51,9 +51,8 @@ const typeToDisplay = (type) => {
     }
 }
 
-export default function ProjectTile(props) {
-    const hasVote = props.project_type === "Official"
-    console.log("props:", props);
+export default function ProjectTile({project_name, project_type, description, post_date, vote_date, tags}) {
+    const hasVote = project_type === "Official"
 
     return <Card variant={"outlined"}>
         <CardActionArea>
@@ -63,16 +62,22 @@ export default function ProjectTile(props) {
                 title="park"
             />
             <CardContent>
-                <Typography variant={"h4"}>{props.project_name}</Typography>
+                <Typography variant={"h4"}>{project_name}</Typography>
                 <Typography sx={{mb: 2}} color={"text.disabled"}
-                            variant={"body2"}>{typeToDisplay(props.project_type)}</Typography>
-                <Typography sx={{mb: 2, mt: 2}} variant={"body1"}>{shortenString(props.description, 120)}</Typography>
+                            variant={"body2"}>{typeToDisplay(project_type)}</Typography>
+                <Typography sx={{mb: 2, mt: 2}} variant={"body1"}>{shortenString(description, 120)}</Typography>
                 <Grid2 container spacing={1}>
                     <Grid2 item>
-                        <Chip size={"small"} color={"primary"} label={"Data dodania: " + props.post_date}/>
+                        <Chip size={"small"} color={"primary"} label={"Data dodania: " + post_date}/>
                     </Grid2>
                     {hasVote ? (<Grid2 item><Chip color={"primary"} size={"small"}
-                                                  label={"Data głosowania: " + props.vote_date}/></Grid2>) : ""}
+                                                  label={"Data głosowania: " + vote_date}/></Grid2>) : ""}
+                </Grid2>
+                <Grid2 sx={{mt: 1}} container spacing={1}>
+                    {tags.map((tag, index) => {
+                        return <Grid2 item><Chip size={"small"} color={"primary"} variant={"outlined"} label={"#" + tag}
+                                                 key={index}/></Grid2>
+                    })}
                 </Grid2>
             </CardContent>
         </CardActionArea>
