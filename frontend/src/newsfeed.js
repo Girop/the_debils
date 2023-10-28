@@ -50,10 +50,7 @@ export default function Newsfeed() {
             {posts.map((i, item) => (
                 <NewsPost 
                     key={i}
-                    title={item.name}
-                    date={item.date}
-                    author={item.author}
-                    content={item.content}
+                    {...item}
                 />
             ))}
         </ul>

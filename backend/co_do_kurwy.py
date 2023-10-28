@@ -3,7 +3,7 @@ import sqlite3
 import json
 from to_json_defs import to_json_amendment, to_json_project
 
-conn = sqlite3.connect("backend\database\database.db")
+conn = sqlite3.connect(r"backend/database/database.db")
 
 cursor = conn.cursor()
 cursor.execute(
