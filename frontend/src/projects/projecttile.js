@@ -66,14 +66,14 @@ export default function ProjectTile(props) {
                 <Typography variant={"h4"}>{props.project_name}</Typography>
                 <Typography sx={{mb: 2}} color={"text.disabled"}
                             variant={"body2"}>{typeToDisplay(props.project_type)}</Typography>
+                <Typography sx={{mb: 2, mt: 2}} variant={"body1"}>{shortenString(props.description, 120)}</Typography>
                 <Grid2 container spacing={1}>
                     <Grid2 item>
-                        <Chip color={"primary"} label={"Data dodania: " + props.post_date}/>
+                        <Chip size={"small"} color={"primary"} label={"Data dodania: " + props.post_date}/>
                     </Grid2>
-                    {hasVote ? (<Grid2 item><Chip color={"primary"}
+                    {hasVote ? (<Grid2 item><Chip color={"primary"} size={"small"}
                                                   label={"Data głosowania: " + props.vote_date}/></Grid2>) : ""}
                 </Grid2>
-                <Typography sx={{mb: 2, mt: 2}} variant={"body1"}>{shortenString(props.description, 120)}</Typography>
             </CardContent>
         </CardActionArea>
     </Card>
