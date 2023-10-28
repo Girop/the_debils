@@ -4,8 +4,11 @@ import json
 from to_json_defs import to_json_amendment, to_json_project
 
 conn = sqlite3.connect(r"backend/database/database.db")
-
 cursor = conn.cursor()
+cursor.execute("DROP TABLE IF EXISTS project")
+cursor.execute("DROP TABLE IF EXISTS amendments")
+cursor.execute("DROP TABLE IF EXISTS announcements")
+cursor.execute("DROP TABLE IF EXISTS project_tags")
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS project (project_id INTERGER PRIMARY KEY, project_type TEXT, title TEXT, content TEXT, post_date TEXT, vote_date TEXT, approves INTEGER, disapproves INTEGER, author TEXT, FOREIGN KEY (project_type) REFERENCES Project_type(name))"
 )
@@ -16,13 +19,16 @@ cursor.execute(
     "CREATE TABLE IF NOT EXISTS announcements (announcement_id INTEGER PRIMARY KEY, title TEXT, content TEXT, date TEXT, author TEXT)"
 )
 cursor.execute(
-    "INSERT INTO project VALUES (1, 'Official', 'Uchwała nr 1', 'Uchwała nr 1 dotycząca twojej matki', '2030-01-11', '2030-05-11', 50, 34, 'Jan Kowalski')"
+    "CREATE TABLE IF NOT EXISTS project_tags (name, project_id, FOREIGN KEY (project_id) REFERENCES project(project_id))"
+)
+cursor.execute(
+    "INSERT INTO project VALUES (1, 'Official', 'Nowy chodnik', 'Planowana budowa nowego chodnika w Osiedlu XYZ!\nSzanowni Mieszkańcy Osiedla XYZ,\nChcemy was poinformować o planowanej budowie nowego chodnika na naszym osiedlu. To ważne przedsięwzięcie ma na celu poprawę naszego środowiska miejskiego i bezpieczeństwa pieszych.\nGŁÓWNE INFORMACJE:\n- Lokalizacja: [Wprowadź lokalizację chodnika]\n- Data rozpoczęcia: [Podaj datę rozpoczęcia prac]\n- Planowany czas trwania: [Podaj szacowany czas trwania prac]\n- Wprowadzenie zmian w ruchu drogowym: [Jeśli to dotyczy]\n- Przerwy w dostępie do posesji: [Jeśli to dotyczy]\nTwoje zdanie się liczy!\nChcemy usłyszeć wasze uwagi, sugestie i opinie na temat projektu budowy chodnika.', '2030-01-11', '2030-05-11', 50, 34, 'Jan Kowalski')"
 )
 cursor.execute(
     "INSERT INTO project VALUES (2, 'Proposition', 'Uchwała nr 2', 'Uchwała nr 2 dotycząca twojego ojca', '2014-10-24', '2014-11-24', 5000, 134, 'Kan Jowalski')"
 )
 cursor.execute(
-    "INSERT INTO project VALUES (3, 'Official', 'Uchwała nr 3', 'Uchwała nr 3 dotycząca twojej matki, twojego ojca i twojej babci, bo skubana to sie w grobie przewraca jak slyszy co w tej wsi odpierdalasz.', '2030-01-11', '2030-05-11', 50, 34, 'Jan Kowalski')"
+    "INSERT INTO project VALUES (3, 'Official', 'Uchwała nr 3', 'Projekt remontu i rozbudowy parku w Osiedlu XYZ!\n\nSzanowni Mieszkańcy Osiedla XYZ,\n\nMamy przyjemność ogłosić planowany projekt remontu i rozbudowy naszego lokalnego parku. Chcielibyśmy, abyście byli częścią tego procesu i mieli wpływ na kształtowanie naszej przestrzeni miejskiej.\nGŁÓWNE INFORMACJE O PROJEKCIE:\n- Lokalizacja parku: [Podaj lokalizację parku]\n- Cele projektu: [Opisz cele remontu, np. poprawa dostępu, dodanie placu zabaw, nowa roślinność itp.]\n- Planowany czas trwania projektu: [Podaj szacowany czas trwania prac]\n- Konsultacje z mieszkańcami: [Opisz plany spotkań konsultacyjnych]\nTwoje pomysły są ważne!\nChcemy usłyszeć Wasze sugestie, pomysły i potrzeby dotyczące projektu remontu parku.', '2030-01-11', '2030-05-11', 50, 34, 'Jan Kowalski')"
 )
 cursor.execute(
     "INSERT INTO project VALUES (4, 'Proposition', 'Uchwała nr 4', 'Uchwała nr 4 dotycząca twojego ojca, twojej matki i twojego dziadka, bo skubana to sie w grobie przewraca jak slyszy co w tej wsi odpierdalasz.', '2014-10-24', '2014-11-24', 5000, 134, 'Kan Jowalski')"
@@ -63,5 +69,13 @@ cursor.execute(
 cursor.execute(
     "INSERT INTO announcements VALUES (6, 'Sprzedam audi', 'Zartowalem. Tak naprawde ogloszenie jest o oplu.', '2014-10-24', 'Jowalska Jowalska')"
 )
+cursor.execute("INSERT INTO project_tags VALUES ('Komunikacja', 1)")
+cursor.execute("INSERT INTO project_tags VALUES ('Beton', 1)")
+cursor.execute("INSERT INTO project_tags VALUES ('Zieleń', 2)")
+cursor.execute("INSERT INTO project_tags VALUES ('Zieleń', 3)")
+cursor.execute("INSERT INTO project_tags VALUES ('Zieleń', 4)")
+cursor.execute("INSERT INTO project_tags VALUES ('Autko', 5)")
+cursor.execute("INSERT INTO project_tags VALUES ('Zieleń', 5)")
+cursor.execute("INSERT INTO project_tags VALUES ('Zieleń', 6)")
 conn.commit()
 conn.close()

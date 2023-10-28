@@ -27,6 +27,7 @@ def to_json_project(att):
         "disapproves",
         "author",
         "amendments",
+        "tags",
     ]
     dict_to_json = {}
     for a, b in zip(attributes, att):

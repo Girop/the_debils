@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from prepare_defs import prepare_project, prepare_announcements
+from prepare_defs import prepare_project, prepare_announcements, prepare_tags
 from os import path
 from flask_cors import CORS
 
@@ -25,6 +25,15 @@ def announcement():
         resp = jsonify(prepare_announcements(database_path))
         resp.headers["Access-Control-Allow-Origin"] = "*"
         return resp
+
+
+@app.route("/getTags", methods=["GET"])
+def tag_list():
+    if request.method == "GET":
+        resp = jsonify(prepare_tags(database_path))
+        resp.headers["Access-Control-Allow-Origin"] = "*"
+        return resp
+
 
 if __name__ == "__main__":
     app.run(debug=True)
