@@ -5,6 +5,7 @@ import {Container} from "@mui/material";
 import {useEffect, useState} from "react";
 import {SERVER_ADDRESS} from "./common";
 
+
 export default function Projects() {
     const [tagsList, setTagsList] = useState([]);
     const [projectsList, setProjectsList] = useState([]);

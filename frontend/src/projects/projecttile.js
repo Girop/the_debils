@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     Button,
     Card,
@@ -7,11 +8,12 @@ import {
     CardContent,
     CardMedia,
     Chip,
-    Stack,
     Typography
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import parkImage from "./park.jpg";
+import { ProjectContext } from "../projectcontext";
+
 
 /*
 
@@ -53,9 +55,17 @@ const typeToDisplay = (type) => {
 
 export default function ProjectTile({project_name, project_type, description, post_date, vote_date, tags}) {
     const hasVote = project_type === "Official"
+    const navigate = useNavigate();
+    const {bigPage, setPage} = useContext(ProjectContext);
+
+    function handleClick() {
+        const props = {project_name, project_type, description, post_date, vote_date, tags};
+        setPage(props); 
+        navigate("bigProjectView");
+    }
 
     return <Card variant={"outlined"}>
-        <CardActionArea>
+        <CardActionArea onClick={() => handleClick()}>
             <CardMedia
                 sx={{height: "200px"}}
                 image={parkImage}

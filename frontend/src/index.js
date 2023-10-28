@@ -4,31 +4,53 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
 import News from "./newsfeed.js";
 import Projects from "./projects.js";
 import {ThemeProvider} from "@mui/material";
 import {createTheme} from "@mui/material";
 import Menubar from "./menubar.js";
+import { ProjectContext } from "./projectcontext.js";
+import BigView from "./projectbigview.js";
 
-const router = createBrowserRouter([{
-        path: "/",
-        element: (
+
+function ProjectView() {
+    return (
             <>
                 <Menubar />
                 <Projects/>
             </>
         )
-    ,
-    },
-    {
-        path: "news",
-        element: (
+}
+
+function ViewsView() {
+    return (
         <>
             <Menubar />
             <News/>
         </>
-        ),
+    )
+}
+
+function BigProjectView() {
+    return (
+        <>
+            <Menubar /> 
+            <BigView />
+        </>
+    )
+}
+
+const router = createBrowserRouter([{
+        path: "/",
+        element: <ProjectView/>
+    },
+    {
+        path: "news",
+        element: <ViewsView />
+    },
+    {
+        path: "bigProjectView",
+        element: <BigProjectView />
     }
 ]);
 
@@ -43,8 +65,20 @@ const theme = createTheme({
     }
 });
 
+
+function ProjectWrapper() {
+    const [bigPage, setPage] = React.useState({});
+
+    return (
+        <ThemeProvider theme={theme}>  
+            <ProjectContext.Provider value={{bigPage, setPage}}>
+                <RouterProvider router={router}/>
+            </ProjectContext.Provider>
+        </ThemeProvider>
+    )
+}
+
+
 createRoot(document.getElementById("root")).render(
-    <ThemeProvider theme={theme}>   
-        <RouterProvider router={router}/>
-    </ThemeProvider>
+    <ProjectWrapper/>
 );
