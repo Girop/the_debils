@@ -1,10 +1,8 @@
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link,
+  createBrowserRouter,
+  RouterProvider,
 } from "react-router-dom";
 
 import News from "./newsfeed.js";
