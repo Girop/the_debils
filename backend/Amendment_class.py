@@ -16,7 +16,7 @@ def to_json_amendment(att):
     dict_to_json = {}
     for a, b in zip(attributes, att):
         dict_to_json[a] = b
-    return json.dumps(dict_to_json)
+    return dict_to_json
 
 
 def to_json_project(att):
@@ -33,7 +33,7 @@ def to_json_project(att):
     dict_to_json = {}
     for a, b in zip(attributes, att):
         dict_to_json[a] = b
-    return json.dumps(dict_to_json)
+    return dict_to_json
 
 
 class Project:
