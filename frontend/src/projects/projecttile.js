@@ -1,4 +1,5 @@
 import React from "react";
+import {Card, Typography} from "@mui/material";
 
 /*
 
@@ -30,6 +31,7 @@ const shortenString = (string, maxLength) => {
 
 const typeToDisplay = (type) => {
     switch(type) {
+        case "Ustawa":
         case "Official": return "Projekt samorządowy";
         case "Proposition": return "Propozycja obywatelska";
     }
@@ -37,15 +39,16 @@ const typeToDisplay = (type) => {
 
 export default function ProjectTile(props) {
     const hasVote = props.project_type === "Official"
+    console.log("props:", props);
 
-    return <div style={{backgroundColor: "red"}}>
-        <h1>{props.project_name}</h1>
-        <h4>{typeToDisplay(props.project_type)}</h4>
+    return <Card>
+        <Typography variant={"h3"}>{props.project_name}</Typography>
+        <Typography variant={"h4"}>{typeToDisplay(props.project_type)}</Typography>
         <p>Data dodania: {props.post_date}
             { hasVote ? ", Data głosowania: " : "" }
             { hasVote ? props.vote_date : "" }
         </p>
         <p>{shortenString(props.description, 120)}</p>
         <button>Szczegóły</button>
-    </div>
+    </Card>
 }
