@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from prepare_defs import prepare_project, prepare_announcements
 from os import path
 
@@ -14,14 +14,17 @@ app = Flask(__name__)
 @app.route("/getProjects", methods=["GET"])
 def amendment():
     if request.method == "GET":
-        return prepare_project(database_path)
+        resp = jsonify(prepare_project(database_path))
+        resp.headers["Access-Control-Allow-Origin"] = "*"
+        return resp
 
 
 @app.route("/getAnnouncements", methods=["GET"])
 def announcement():
     if request.method == "GET":
-        return prepare_announcements(database_path)
-
+        resp = jsonify(prepare_announcements(database_path))
+        resp.headers["Access-Control-Allow-Origin"] = "*"
+        return resp
 
 if __name__ == "__main__":
     app.run(debug=True)
