@@ -25,6 +25,12 @@ const theme = createTheme({
         primary: {
             main: "#b30000"
         }
+    },
+    typography: {
+        fontFamily: [
+            "Roboto",
+            "monospace"
+        ]
     }
 });
 
