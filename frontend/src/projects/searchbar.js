@@ -3,13 +3,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import {Chip, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import {FaX, FaXmark} from "react-icons/fa6";
 
-const tags = [
-    "parki",
-    "imprezy",
-    "chodniki"
-]
-
-export default function SearchBar() {
+export default function SearchBar({tags}) {
     const [selectedProjectTypes, setSelectedProjectTypes] = useState(["Official", "Proposition"]);
     const [seletedTags, setSelectedTags] = useState([]);
 
