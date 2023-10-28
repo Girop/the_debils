@@ -1,4 +1,17 @@
-import { AppBar, Toolbar, Box, Typography } from '@mui/material';
+import {Button, Box} from '@mui/material';
+import { Link } from 'react-router-dom';
+
+
+function LeftIsland() {
+    
+    return (
+        <Box>
+         <Link to='/' >Projekty</Link>
+         <Link to= '/propositions' >Propozycje</Link>
+         <Link to = '/news' >Wiadomości</Link>
+        </Box>
+    )
+}
 
 export default function Menubar() {
     return (
@@ -9,12 +22,7 @@ export default function Menubar() {
             alignItems: 'center',
           }}
         >
-          <Box sx={{ width: '20%' }}>
-            {/* Small island contents */}
-          </Box>
-          <Box sx={{ width: '80%' }}>
-            {/* Larger island contents */}
-          </Box>
+            <LeftIsland />
         </Box>
     )
 }
