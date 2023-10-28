@@ -3,10 +3,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import {Chip, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import {FaX, FaXmark} from "react-icons/fa6";
 
-export default function SearchBar({tags}) {
-    const [selectedProjectTypes, setSelectedProjectTypes] = useState(["Official", "Proposition"]);
-    const [seletedTags, setSelectedTags] = useState([]);
-
+export default function SearchBar({tags, selectedProjectTypes, setSelectedProjectTypes, selectedTags, setSelectedTags}) {
     const handleProjectTypes = (event, newProjectTypes) => {
         setSelectedProjectTypes(newProjectTypes);
     };
@@ -44,7 +41,7 @@ export default function SearchBar({tags}) {
         <Grid2 item sm={12}>
             <Stack direction={"row"} gap={1}>
                 {tags.map((tagName) => {
-                    const isSelected = seletedTags.includes(tagName);
+                    const isSelected = selectedTags.includes(tagName);
                     return <Chip variant={isSelected ? "filled" : "outlined"}
                                  color={"primary"} label={"#" + tagName}
                                  key={tagName}

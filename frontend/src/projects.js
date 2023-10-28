@@ -7,6 +7,8 @@ import {SERVER_ADDRESS} from "./common";
 
 export default function Projects() {
     const [tagsList, setTagsList] = useState([]);
+    const [selectedProjectTypes, setSelectedProjectTypes] = useState(["Official", "Proposition"]);
+    const [selectedTags, setSelectedTags] = useState([]);
 
     useEffect(() => {
         fetch(SERVER_ADDRESS + "/getTags", {method: "GET"}).then((response) => {
@@ -18,7 +20,10 @@ export default function Projects() {
     }, []);
 
     return <Container maxWidth={"lg"}>
-        <SearchBar tags={tagsList} />
-        <ProjectList />
+        <SearchBar tags={tagsList} selectedProjectTypes={selectedProjectTypes}
+                   setSelectedProjectTypes={setSelectedProjectTypes}
+                   selectedTags={selectedTags} setSelectedTags={setSelectedTags}
+        />
+        <ProjectList/>
     </Container>
 }
