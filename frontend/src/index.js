@@ -9,6 +9,7 @@ import News from "./newsfeed.js";
 import Projects from "./projects.js";
 import {ThemeProvider} from "@mui/material";
 import {createTheme} from "@mui/material";
+import Menubar from "./menubar.js";
 
 const router = createBrowserRouter([{
     path: "/",
@@ -36,6 +37,7 @@ const theme = createTheme({
 
 createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={theme}>
+        <Menubar />
         <RouterProvider router={router}/>
     </ThemeProvider>
 );
