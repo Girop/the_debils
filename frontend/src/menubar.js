@@ -34,7 +34,7 @@ function LeftIsland() {
 function LoginIcon() { 
     
     return (
-        <Fab color='secondary' size='small' sx={{margin: '10px'}}>
+        <Fab color='secondary' size='medium' sx={{margin: '10px'}}>
             <PersonIcon />
         </Fab>
     )
