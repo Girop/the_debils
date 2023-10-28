@@ -1,5 +1,17 @@
 import React from "react";
-import {Card, Typography} from "@mui/material";
+import {
+    Button,
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Chip,
+    Stack,
+    Typography
+} from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import parkImage from "./park.jpg";
 
 /*
 
@@ -22,7 +34,7 @@ project => {
  */
 
 const shortenString = (string, maxLength) => {
-    if(string.length <= maxLength)
+    if (string.length <= maxLength)
         return string;
 
     const shortened = string.substring(0, maxLength - 3 - 1);
@@ -30,10 +42,12 @@ const shortenString = (string, maxLength) => {
 };
 
 const typeToDisplay = (type) => {
-    switch(type) {
+    switch (type) {
         case "Ustawa":
-        case "Official": return "Projekt samorządowy";
-        case "Proposition": return "Propozycja obywatelska";
+        case "Official":
+            return "Projekt samorządowy";
+        case "Proposition":
+            return "Propozycja obywatelska";
     }
 }
 
@@ -41,14 +55,26 @@ export default function ProjectTile(props) {
     const hasVote = props.project_type === "Official"
     console.log("props:", props);
 
-    return <Card>
-        <Typography variant={"h3"}>{props.project_name}</Typography>
-        <Typography variant={"h4"}>{typeToDisplay(props.project_type)}</Typography>
-        <p>Data dodania: {props.post_date}
-            { hasVote ? ", Data głosowania: " : "" }
-            { hasVote ? props.vote_date : "" }
-        </p>
-        <p>{shortenString(props.description, 120)}</p>
-        <button>Szczegóły</button>
+    return <Card variant={"outlined"}>
+        <CardActionArea>
+            <CardMedia
+                sx={{height: "200px"}}
+                image={parkImage}
+                title="park"
+            />
+            <CardContent>
+                <Typography variant={"h4"}>{props.project_name}</Typography>
+                <Typography sx={{mb: 2}} color={"text.disabled"}
+                            variant={"body2"}>{typeToDisplay(props.project_type)}</Typography>
+                <Grid2 container spacing={1}>
+                    <Grid2 item>
+                        <Chip color={"primary"} label={"Data dodania: " + props.post_date}/>
+                    </Grid2>
+                    {hasVote ? (<Grid2 item><Chip color={"primary"}
+                                                  label={"Data głosowania: " + props.vote_date}/></Grid2>) : ""}
+                </Grid2>
+                <Typography sx={{mb: 2, mt: 2}} variant={"body1"}>{shortenString(props.description, 120)}</Typography>
+            </CardContent>
+        </CardActionArea>
     </Card>
 }

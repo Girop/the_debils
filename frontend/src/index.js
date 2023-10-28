@@ -48,10 +48,7 @@ const theme = createTheme({
         }
     },
     typography: {
-        fontFamily: [
-            "Roboto",
-            "monospace"
-        ]
+        fontFamily: "Roboto, monospace"
     }
 });
 

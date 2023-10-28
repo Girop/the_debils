@@ -17,9 +17,9 @@ export default function ProjectList() {
 
     return <Grid2 container spacing={2}>
         {projectsList.map((project, index) => {
-            return <Grid2 item sm={12} md={6} lg={4} key={index}>
+            return <Grid2 item sm={12} md={6} key={index}>
                 <ProjectTile
-                    project_name={"Placeholder"}
+                    project_name={project.title}
                     project_type={project.project_type}
                     post_date={project.post_date}
                     vote_date={project.vote_date}
