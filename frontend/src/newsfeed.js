@@ -10,8 +10,8 @@ function NewsPost({title, content, date, author}) {
             sx={{
                 width: '80vw',
                 margin: 'auto',
-                'border-top-left-radius': '50px',
-                'border-top-right-radius': '50px'
+                borderTopRightRadius: '50px',
+                borderTopLeftRadius: '50px',
               }}
         >
             <CardContent>

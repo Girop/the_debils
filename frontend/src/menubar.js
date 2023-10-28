@@ -5,30 +5,27 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 
-function MyTab({label, to,  index}){
-    return (
-        <Tab 
-            component={Link} 
-            label={label} 
-            to={to}
-            id={index}
-        />
-    )
-}
-
 function LeftIsland() {
     const [value, setValue] = useState(0);
 
-    function handleChange(event, newValue) {
-        console.log(value);
+    function handleChange(_event, newValue) {
         setValue(newValue);
     }
 
+    const tabSx = {flex: 'auto', maxWidth: '100vw'}
+
     return (
-        <Tabs onChange={() => console.log("fuck me")} value={value}>
-            <MyTab label="Projekty" to="/" index={0}/> 
-            <MyTab label="Propozycje" to="/propositions" index={1}/> 
-            <MyTab label="Ogłoszenia" to="/news" index={2}/> 
+        <Tabs
+            value={value}
+            onChange={handleChange}
+            sx={{
+                margin: 'auto',
+                width: '100vw',
+            }}
+        >
+            <Tab sx={tabSx} label="Projekty" to='/' component={Link}/>     
+            <Tab sx={tabSx} label="Propozycje" to="/propositions" component={Link}/>     
+            <Tab sx={tabSx} label="Ogłoszenia" to="/news" component={Link}/>     
         </Tabs>
     )
 }
