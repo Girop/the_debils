@@ -29,15 +29,6 @@ const router = createBrowserRouter([{
             <News/>
         </>
         ),
-    },
-    {
-        path: "propositions",
-        element: (
-            <>
-                <Menubar /> 
-                TODO
-            </>
-        )
     }
 ]);
 

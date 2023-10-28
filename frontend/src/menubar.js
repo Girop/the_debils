@@ -1,8 +1,10 @@
-import {Box} from '@mui/material';
+import {Box, Fab} from '@mui/material';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 
 function LeftIsland() {
@@ -24,9 +26,17 @@ function LeftIsland() {
             }}
         >
             <Tab sx={tabSx} label="Projekty" to='/' component={Link}/>     
-            <Tab sx={tabSx} label="Propozycje" to="/propositions" component={Link}/>     
             <Tab sx={tabSx} label="Ogłoszenia" to="/news" component={Link}/>     
         </Tabs>
+    )
+}
+
+function LoginIcon() { 
+    
+    return (
+        <Fab color='secondary' size='small' sx={{margin: '10px'}}>
+            <PersonIcon />
+        </Fab>
     )
 }
 
@@ -41,6 +51,7 @@ export default function Menubar() {
           }}
         >
             <LeftIsland />
+            <LoginIcon />
         </Box>
     )
 }
