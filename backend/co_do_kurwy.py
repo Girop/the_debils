@@ -30,4 +30,14 @@ cursor.execute(
 conn.commit()"""
 
 
-to_send()
+cursor.execute(
+    "CREATE TABLE IF NOT EXISTS announcements (announcement_id INTEGER PRIMARY KEY, title TEXT, content TEXT, date TEXT)"
+)
+cursor.execute(
+    "INSERT INTO announcements VALUES (1, 'Ważne ogłoszenie', 'Ważne ogłoszenie dotyczace twojej matki', '2030-05-11')"
+)
+cursor.execute(
+    "INSERT INTO announcements VALUES (2, 'Mniej ważne ogłoszenie', 'Akurat to dotyczy twojego ojca', '2014-10-24')"
+)
+conn.commit()
+conn.close()
