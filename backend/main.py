@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from prepare_defs import prepare_project, prepare_announcements, prepare_tags
+from add_defs import add_project, add_amendment
 from os import path
 from flask_cors import CORS
 
@@ -33,6 +34,22 @@ def tag_list():
         resp = jsonify(prepare_tags(database_path))
         resp.headers["Access-Control-Allow-Origin"] = "*"
         return resp
+
+
+@app.route("/addProject", methods=["POST"])
+def add_project():
+    if request.method == "POST":
+        data = request.get_json()
+        add_project(data, database_path)
+        return "OK"
+
+
+@app.route("/addAmendment", methods=["POST"])
+def add_amendment():
+    if request.method == "POST":
+        data = request.get_json()
+        add_amendment(data, database_path)
+        return "OK"
 
 
 if __name__ == "__main__":
