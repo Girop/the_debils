@@ -102,8 +102,8 @@ export default function ProjectTile({
                 </Grid2>
                 <Grid2 sx={{mt: 1}} container spacing={1}>
                     {tags.map((tag, index) => {
-                        return <Grid2 item><Chip size={"small"} color={"primary"} variant={"outlined"} label={"#" + tag}
-                                                 key={index}/></Grid2>
+                        return <Grid2 item key={index}><Chip size={"small"} color={"primary"} variant={"outlined"} label={"#" + tag}
+                                                 /></Grid2>
                     })}
                 </Grid2>
             </CardContent>
