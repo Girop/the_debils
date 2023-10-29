@@ -47,46 +47,35 @@ function ProjectView() {
 
     return (
         <>
-            <Menubar/>
             <Projects tagsList={tagsList} projectsList={projectsList}/>
             <ProposeProjectButton setProposeProjectModalOpen={setProposeProjectModalOpen}/>
-            <NewProjectDialog tagsList={tagsList} isOpen={proposeProjectModalOpen}
-                              onClose={() => setProposeProjectModalOpen(false)} projectsList={projectsList}/>
-        </>
-    )
-}
-
-function ViewsView() {
-    return (
-        <>
-            <Menubar/>
-            <News/>
-        </>
-    )
-}
-
-function BigProjectView() {
-    return (
-        <>
-            <Menubar/>
-            <BigView/>
+            <NewProjectDialog 
+                tagsList={tagsList} 
+                isOpen={proposeProjectModalOpen}
+                onClose={() => setProposeProjectModalOpen(false)} 
+                projectsList={projectsList}
+            />
         </>
     )
 }
 
 const router = createBrowserRouter([{
-    path: "/",
-    element: <ProjectView/>
-},
-    {
-        path: "news",
-        element: <ViewsView/>
-    },
-    {
-        path: "bigProjectView",
-        element: <BigProjectView/>
-    }
-]);
+    element: <Menubar/>,
+    children: [
+        {
+            path: "/",
+            element: <ProjectView/>
+        },
+        {
+            path: "news",
+            element: <News/> 
+        },
+        {
+            path: "bigProjectView",
+            element: <BigView/> 
+        }
+    ]
+}]);
 
 const theme = createTheme({
     palette: {

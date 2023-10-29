@@ -1,6 +1,6 @@
 import {Box, Fab} from '@mui/material';
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PersonIcon from '@mui/icons-material/Person';
@@ -54,6 +54,7 @@ export default function Menubar() {
                 <LeftIsland/>
                 <LoginIcon/>
             </Box>
+            <Outlet />
         </>
     )
 }
