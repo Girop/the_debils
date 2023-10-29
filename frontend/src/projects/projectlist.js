@@ -14,6 +14,8 @@ export default function ProjectList({projectsList}) {
                     vote_date={project.vote_date}
                     description={project.content}
                     tags={project.tags}
+                    approves={project.approves}
+                    disapproves={project.disapproves}
                 />
             </Grid2>
         })}

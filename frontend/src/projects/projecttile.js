@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {
-    Button,
+    Button, ButtonGroup,
     Card,
     CardActionArea,
     CardActions,
@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import parkImage from "./park.jpg";
-import { ProjectContext } from "../projectcontext";
+import {ProjectContext} from "../projectcontext";
+import {ThumbDown, ThumbUp} from "@mui/icons-material";
 
 
 /*
@@ -53,14 +54,23 @@ const typeToDisplay = (type) => {
     }
 }
 
-export default function ProjectTile({project_name, project_type, description, post_date, vote_date, tags}) {
+export default function ProjectTile({
+                                        project_name,
+                                        project_type,
+                                        description,
+                                        post_date,
+                                        vote_date,
+                                        tags,
+                                        approves,
+                                        disapproves
+                                    }) {
     const hasVote = project_type === "Official"
     const navigate = useNavigate();
     const {bigPage, setPage} = useContext(ProjectContext);
 
     function handleClick() {
         const props = {project_name, project_type, description, post_date, vote_date, tags};
-        setPage(props); 
+        setPage(props);
         navigate("bigProjectView");
     }
 
@@ -70,7 +80,14 @@ export default function ProjectTile({project_name, project_type, description, po
                 sx={{height: "200px"}}
                 image={parkImage}
                 title="park"
-            />
+            >
+                <ButtonGroup color={"secondary"} variant={"contained"}
+                             sx={{position: "absolute", top: "4px", right: "4px"}}
+                >
+                    <Button><ThumbUp sx={{mr: 1}}/> {approves}</Button>
+                    <Button><ThumbDown sx={{mr: 1}}/> {disapproves}</Button>
+                </ButtonGroup>
+            </CardMedia>
             <CardContent>
                 <Typography variant={"h4"}>{project_name}</Typography>
                 <Typography sx={{mb: 2}} color={"text.disabled"}
