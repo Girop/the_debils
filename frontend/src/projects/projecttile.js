@@ -82,10 +82,10 @@ export default function ProjectTile({
                 title="park"
             >
                 <ButtonGroup color={"secondary"} variant={"contained"}
-                             sx={{position: "absolute", top: "4px", right: "4px"}}
+                             sx={{position: "absolute", top: "4px", right: "4px", zIndex: "1000"}}
                 >
-                    <Button><ThumbUp sx={{mr: 1}}/> {approves}</Button>
-                    <Button><ThumbDown sx={{mr: 1}}/> {disapproves}</Button>
+                    <Button onClick={(e) => { e.stopPropagation(); }}><ThumbUp sx={{mr: 1}}/> {approves}</Button>
+                    <Button onClick={(e) => { e.stopPropagation(); }}><ThumbDown sx={{mr: 1}}/> {disapproves}</Button>
                 </ButtonGroup>
             </CardMedia>
             <CardContent>
