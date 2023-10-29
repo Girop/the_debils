@@ -2,34 +2,22 @@ import {Box, Button, Container, Grid, Modal, Paper, Stack, TextField, Typography
 import TagSelector from "./tagselector";
 import {useState} from "react";
 import {SERVER_ADDRESS} from "./common";
+import {useNavigate} from "react-router-dom";
 
-export default function NewProjectDialog({isOpen, onClose, tagsList, projectsList, setSnackbarOpen, setSnackbarText}) {
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [projectName, setProjectName] = useState("");
+export default function AddAmendmentDialog({project, isOpen, onClose, setSnackbarOpen, setSnackbarText}) {
     const [authorName, setAuthorName] = useState("");
-    const [projectContent, setProjectContent] = useState("");
+    const [amendmentContent, setAmendmentContent] = useState("");
 
-    const [nameError, setNameError] = useState("");
     const [authorError, setAuthorError] = useState("");
-    const [contentError, setContentError] = useState("");
+    const [amendmentError, setAmendmentError] = useState("");
+
+    const navigate = useNavigate();
 
     const clear = () => {
-        setProjectName("");
         setAuthorName("");
-        setProjectContent("");
-        setNameError("");
+        setAmendmentContent("");
         setAuthorError("");
-        setContentError("");
-    };
-
-    const handleProjectName = (value) => {
-        if (value.trim()) {
-            setNameError("");
-        } else {
-            setNameError("Pole nie może być puste")
-        }
-
-        setProjectName(value);
+        setAmendmentContent("");
     };
 
     const handleAuthorName = (value) => {
@@ -42,30 +30,25 @@ export default function NewProjectDialog({isOpen, onClose, tagsList, projectsLis
         setAuthorName(value);
     };
 
-    const handleProjectContent = (value) => {
+    const handleAmendmentContent = (value) => {
         if (value.trim()) {
-            setContentError("");
+            setAmendmentError("");
         } else {
-            setContentError("Pole nie może być puste")
+            setAmendmentError("Pole nie może być puste")
         }
 
-        setProjectContent(value);
+        setAmendmentContent(value);
     };
 
     const verify = () => {
         let result = true;
-        if (!projectName.trim()) {
-            setNameError("Pole nie może być puste");
-            result = false;
-        }
-
         if (!authorName.trim()) {
             setAuthorError("Pole nie może być puste");
             result = false;
         }
 
-        if (!projectContent.trim()) {
-            setContentError("Pole nie może być puste");
+        if (!amendmentContent.trim()) {
+            setAmendmentError("Pole nie może być puste");
             result = false;
         }
 
@@ -79,32 +62,25 @@ export default function NewProjectDialog({isOpen, onClose, tagsList, projectsLis
         const date = new Date();
         const dateString = date.toISOString().split('T')[0];
 
-        let maxId = -1;
-        for (let i = 0; i < projectsList.length; i++)
-            if (projectsList[i].project_id > maxId)
-                maxId = projectsList[i].project_id
-
-        fetch(SERVER_ADDRESS + "/addProject", {
+        fetch(SERVER_ADDRESS + "/addAmendment", {
             method: "POST", body: JSON.stringify({
-                project_id: maxId + 1,
-                amendments: [],
-                approves: 0,
+                project_id: project.project_id,
                 author: authorName,
-                content: projectContent,
+                date: dateString,
+                position: 0,
+                lenght: 0,
+                approves: 0,
                 disapproves: 0,
-                post_date: dateString,
-                project_type: "Proposition",
-                tags: selectedTags,
-                title: projectName,
-                vote_date: ""
+                content: amendmentContent,
             }), headers: {"Content-Type": "application/json"}
         }).then((response) => {
             clear();
+            navigate("/");
             window.location.reload(false);
             onClose();
         }).catch((x) => {
             setSnackbarOpen(true);
-            setSnackbarText("Wystąpił błąd podczas przesyłania projektu!");
+            setSnackbarText("Wystąpił błąd podczas przesyłania sugestii!");
             onClose();
         });
     };
@@ -117,14 +93,8 @@ export default function NewProjectDialog({isOpen, onClose, tagsList, projectsLis
     return <Modal open={isOpen} onClose={() => onClose()}>
         <Container maxWidth={"lg"}>
             <Paper sx={{mt: "5em", padding: "1.5em"}}>
-                <Typography sx={{mb: 2}} variant={"h3"}>Zaproponuj nowy projekt</Typography>
+                <Typography sx={{mb: 2}} variant={"h3"}>Zaproponuj zmianę</Typography>
                 <Grid container columnSpacing={2}>
-                    <Grid item sm={12} lg={6}>
-                        <TextField size={"small"} sx={{width: "100%", mt: 1}} label={"Nazwa projektu"}
-                                   value={projectName} onChange={(event) => {
-                            handleProjectName(event.target.value)
-                        }} error={nameError ? true : undefined} helperText={nameError}/>
-                    </Grid>
                     <Grid item sm={12} lg={6}>
                         <TextField size={"small"} sx={{width: "100%", mt: 1}} label={"Imię i nazwisko autora"}
                                    value={authorName} onChange={(event) => handleAuthorName(event.target.value)}
@@ -132,12 +102,9 @@ export default function NewProjectDialog({isOpen, onClose, tagsList, projectsLis
                     </Grid>
                     <Grid item sm={12}>
                         <TextField size={"small"} sx={{width: "100%", mt: 3}} multiline rows={8}
-                                   label={"Treść projektu"} value={projectContent}
-                                   onChange={(event) => handleProjectContent(event.target.value)}
-                                   error={contentError ? true : undefined} helperText={contentError}/>
-                    </Grid>
-                    <Grid item sm={12} sx={{mt: 2}}>
-                        <TagSelector tags={tagsList} selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
+                                   label={"Treść komenatarza"} value={amendmentContent}
+                                   onChange={(event) => handleAmendmentContent(event.target.value)}
+                                   error={amendmentError ? true : undefined} helperText={amendmentError}/>
                     </Grid>
                     <Grid item sm={12} sx={{mt: 1, justifyContent: "flex-end"}}>
                         <Stack
@@ -147,7 +114,8 @@ export default function NewProjectDialog({isOpen, onClose, tagsList, projectsLis
                             spacing={2}
                         >
                             <Button color={"primary"} variant={"contained"} onClick={() => handleSend()}>Wyślij</Button>
-                            <Button color={"secondary"} variant={"contained"} onClick={() => handleCancel()}>Anuluj</Button>
+                            <Button color={"secondary"} variant={"contained"}
+                                    onClick={() => handleCancel()}>Anuluj</Button>
                         </Stack>
                     </Grid>
                 </Grid>

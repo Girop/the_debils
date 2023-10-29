@@ -32,10 +32,20 @@ export default function SearchBar({
             <ToggleButtonGroup sx={{width: "100%"}} value={selectedProjectTypes} onChange={handleProjectTypes}
                                color={"secondary"} >
                 <ToggleButton value={"Official"} sx={{flexGrow: "1"}}>
-                    <Typography variant={"body1"}>Projekty Samorządowe {areOfficialEnabled ? <Done sx={{pt: 1}} /> : ""}</Typography>
+                    <Typography variant={"body1"}>
+                        <Stack direction={"row"} spacing={1} alignItems={"center"}>
+                            <span>Projekty Samorządowe</span>
+                            {areOfficialEnabled ? <Done /> : <span />}
+                        </Stack>
+                    </Typography>
                 </ToggleButton>
                 <ToggleButton value={"Proposition"} sx={{flexGrow: "1"}}>
-                    <Typography variant={"body1"}>Propozycje Obywatelskie {arePropositionsEnabled ? <Done sx={{pt: 1}} /> : ""}</Typography>
+                    <Typography variant={"body1"}>
+                        <Stack direction={"row"} spacing={1} alignItems={"center"}>
+                            <span>Propozycje Obywatelskie</span>
+                            {arePropositionsEnabled ? <Done /> : <span />}
+                        </Stack>
+                    </Typography>
                 </ToggleButton>
             </ToggleButtonGroup>
         </Grid2>

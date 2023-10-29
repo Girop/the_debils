@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {SERVER_ADDRESS} from "./common";
 
 
-export default function Projects({tagsList, projectsList}) {
+export default function Projects({tagsList, projectsList, setSnackbarOpen, setSnackbarText}) {
 
     const [nameFilter, setNameFilter] = useState("");
 
@@ -24,9 +24,9 @@ export default function Projects({tagsList, projectsList}) {
     const tagFiltered = (selectedTags.length === 0) ? nameFilteredProjectsList : nameFilteredProjectsList.filter((project) => {
         let shouldBeIncluded = false;
         selectedTags.forEach((tag) => {
-           if(project.tags.includes(tag)) {
-               shouldBeIncluded = true;
-           }
+            if (project.tags.includes(tag)) {
+                shouldBeIncluded = true;
+            }
         });
 
         return shouldBeIncluded;
@@ -38,6 +38,6 @@ export default function Projects({tagsList, projectsList}) {
                    selectedTags={selectedTags} setSelectedTags={setSelectedTags}
                    nameFilter={nameFilter} setNameFilter={setNameFilter}
         />
-        <ProjectList projectsList={tagFiltered}/>
+        <ProjectList projectsList={tagFiltered} setSnackbarText={setSnackbarText} setSnackbarOpen={setSnackbarOpen}/>
     </Container>
 }

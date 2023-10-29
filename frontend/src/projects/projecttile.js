@@ -56,6 +56,7 @@ const typeToDisplay = (type) => {
 }
 
 export default function ProjectTile({
+                                        project_id,
                                         project_name,
                                         project_type,
                                         description,
@@ -64,14 +65,27 @@ export default function ProjectTile({
                                         tags,
                                         approves,
                                         disapproves,
-                                        amendments
+                                        amendments,
+                                        setSnackbarOpen,
+                                        setSnackbarText,
                                     }) {
     const hasVote = project_type === "Official"
     const navigate = useNavigate();
     const {bigPage, setPage} = useContext(ProjectContext);
 
     function handleClick() {
-        const props = {project_name, project_type, description, post_date, vote_date, tags, amendments};
+        const props = {
+            setSnackbarOpen,
+            setSnackbarText,
+            project_id,
+            project_name,
+            project_type,
+            description,
+            post_date,
+            vote_date,
+            tags,
+            amendments
+        };
         setPage(props);
         navigate("bigProjectView");
     }
@@ -83,7 +97,8 @@ export default function ProjectTile({
                 image={parkImage}
                 title="park"
             >
-                <LikeButtons sx={{position: "absolute", top: "8px", right: "8px"}} approves={approves} disapproves={disapproves} />
+                <LikeButtons sx={{position: "absolute", top: "8px", right: "8px"}} approves={approves}
+                             disapproves={disapproves}/>
             </CardMedia>
             <CardContent>
                 <Typography variant={"h4"}>{project_name}</Typography>
