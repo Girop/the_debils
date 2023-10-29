@@ -35,7 +35,6 @@ function ProjectView() {
         fetch(SERVER_ADDRESS + "/getProjects", {method: "GET"}).then((response) => {
             response.json().then((json) => {
                 setProjectsList(json);
-                console.log(json);
             });
         }).catch(() => {
             setSnackbarOpen(true);
@@ -45,7 +44,6 @@ function ProjectView() {
         fetch(SERVER_ADDRESS + "/getTags", {method: "GET"}).then((response) => {
             response.json().then((json) => {
                 setTagsList(json);
-                console.log(json);
             });
         }).catch(() => {
             setSnackbarOpen(true);

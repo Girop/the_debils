@@ -81,6 +81,7 @@ export default function AddAmendmentDialog({project, isOpen, onClose, setSnackba
         }).catch((x) => {
             setSnackbarOpen(true);
             setSnackbarText("Wystąpił błąd podczas przesyłania sugestii!");
+            navigate("/");
             onClose();
         });
     };

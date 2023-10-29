@@ -21,16 +21,13 @@ export default function Newsfeed({setSnackbarOpen, setSnackbarText}) {
     const [posts, setPosts] = React.useState([]);
 
     useEffect(() => {
-        fetch(`${SERVER_ADDRESS}/getAnnouncements`)
-            .then(res => res.json()).catch(() => {
-            setPosts([]);
-        }).then(json => {
-            setPosts(json);
-        })
-            .catch(err => {
-                console.error(`Fetch error occured /getAnnouncements endpoint: ${err}`);
-                setPosts([]);
+        fetch(SERVER_ADDRESS + "/getAnnouncements", {method: "GET"}).then((response) => {
+            response.json().then((json) => {
+                setPosts(json);
             });
+        }).catch(() => {
+            setPosts([]);
+        });
     }, []);
 
     return (<Container maxWidth={"lg"}>
