@@ -1,7 +1,7 @@
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 import {
-    createBrowserRouter,
+    createBrowserRouter, Outlet,
     RouterProvider,
 } from "react-router-dom";
 import News from "./newsfeed.js";
@@ -15,9 +15,10 @@ import {Add} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import NewProjectDialog from "./newprojectdialog";
 import {SERVER_ADDRESS} from "./common";
+import logo from "./lokalnie_logo_blue.png";
 
 const ProposeProjectButton = ({setProposeProjectModalOpen}) => {
-    return <Fab variant={"extended"} color='primary' size='medium'
+    return <Fab variant={"extended"} color='secondary' size='medium'
                 sx={{position: "fixed", bottom: "8px", right: "8px"}}
                 onClick={() => setProposeProjectModalOpen(true)}>
         Zaproponuj projekt... <Add sx={{ml: 1}}/>
@@ -59,16 +60,27 @@ function ProjectView() {
     )
 }
 
+const RouterElement = () => (<>
+    <img src={logo} alt={"logo"} style={{margin: "2em auto", display: "block"}} />
+    <Outlet />
+</>);
+
 const router = createBrowserRouter([{
-    element: <Menubar/>,
+    element: <RouterElement />,
     children: [
         {
             path: "/",
-            element: <ProjectView/>
+            element: <>
+                <Menubar />
+                <ProjectView/>
+            </>
         },
         {
             path: "news",
-            element: <News/> 
+            element: <>
+                <Menubar />
+                <News/>
+            </>
         },
         {
             path: "bigProjectView",
@@ -80,7 +92,10 @@ const router = createBrowserRouter([{
 const theme = createTheme({
     palette: {
         primary: {
-            main: "#b30000"
+            main: "#374f59"
+        },
+        secondary: {
+            main: "#68902b"
         }
     },
     typography: {

@@ -33,7 +33,7 @@ function LeftIsland() {
 function LoginIcon() {
 
     return (
-        <Fab color='primary' size='medium' sx={{position: "aboslute", top: "8px", right: "8px"}}>
+        <Fab color='secondary' size='medium' sx={{position: "fixed", top: "8px", right: "8px"}}>
             <PersonIcon/>
         </Fab>
     )
@@ -48,13 +48,13 @@ export default function Menubar() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    position: "relative"
+                    position: "relative",
+                    mb: 2
                 }}
             >
                 <LeftIsland/>
                 <LoginIcon/>
             </Box>
-            <Outlet />
         </>
     )
 }

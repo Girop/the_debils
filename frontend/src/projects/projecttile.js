@@ -14,6 +14,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import parkImage from "./park.jpg";
 import {ProjectContext} from "../projectcontext";
 import {ThumbDown, ThumbUp} from "@mui/icons-material";
+import LikeButtons from "../likebuttons";
 
 
 /*
@@ -62,14 +63,15 @@ export default function ProjectTile({
                                         vote_date,
                                         tags,
                                         approves,
-                                        disapproves
+                                        disapproves,
+                                        amendments
                                     }) {
     const hasVote = project_type === "Official"
     const navigate = useNavigate();
     const {bigPage, setPage} = useContext(ProjectContext);
 
     function handleClick() {
-        const props = {project_name, project_type, description, post_date, vote_date, tags};
+        const props = {project_name, project_type, description, post_date, vote_date, tags, amendments};
         setPage(props);
         navigate("bigProjectView");
     }
@@ -81,12 +83,7 @@ export default function ProjectTile({
                 image={parkImage}
                 title="park"
             >
-                <ButtonGroup color={"secondary"} variant={"contained"}
-                             sx={{position: "absolute", top: "4px", right: "4px", zIndex: "1000"}}
-                >
-                    <Button onClick={(e) => { e.stopPropagation(); }}><ThumbUp sx={{mr: 1}}/> {approves}</Button>
-                    <Button onClick={(e) => { e.stopPropagation(); }}><ThumbDown sx={{mr: 1}}/> {disapproves}</Button>
-                </ButtonGroup>
+                <LikeButtons sx={{position: "absolute", top: "8px", right: "8px"}} approves={approves} disapproves={disapproves} />
             </CardMedia>
             <CardContent>
                 <Typography variant={"h4"}>{project_name}</Typography>
@@ -102,7 +99,8 @@ export default function ProjectTile({
                 </Grid2>
                 <Grid2 sx={{mt: 1}} container spacing={1}>
                     {tags.map((tag, index) => {
-                        return <Grid2 item key={index}><Chip size={"small"} color={"primary"} variant={"outlined"} label={"#" + tag}/></Grid2>
+                        return <Grid2 item key={index}><Chip size={"small"} color={"primary"} variant={"outlined"}
+                                                             label={"#" + tag}/></Grid2>
                     })}
                 </Grid2>
             </CardContent>
