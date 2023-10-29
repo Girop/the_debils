@@ -6,29 +6,12 @@ import {useEffect, useState} from "react";
 import {SERVER_ADDRESS} from "./common";
 
 
-export default function Projects() {
-    const [tagsList, setTagsList] = useState([]);
-    const [projectsList, setProjectsList] = useState([]);
+export default function Projects({tagsList, projectsList}) {
+
     const [nameFilter, setNameFilter] = useState("");
 
     const [selectedProjectTypes, setSelectedProjectTypes] = useState(["Official", "Proposition"]);
     const [selectedTags, setSelectedTags] = useState([]);
-
-    useEffect(() => {
-        fetch(SERVER_ADDRESS + "/getTags", {method: "GET"}).then((response) => {
-            response.json().then((json) => {
-                setTagsList(json);
-                console.log(json);
-            });
-        });
-
-        fetch(SERVER_ADDRESS + "/getProjects", {method: "GET"}).then((response) => {
-            response.json().then((json) => {
-                setProjectsList(json);
-                console.log(json);
-            });
-        });
-    }, []);
 
     const typeFilteredProjectsList = projectsList.filter((project) => {
         return selectedProjectTypes.includes(project.project_type);

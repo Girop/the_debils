@@ -29,11 +29,11 @@ def add_project(data, databse_path):
             author,
         ),
     )
+
     for tag in tags:
         cursor.execute("INSERT INTO project_tags VALUES (?, ?)", (tag, project_id))
     conn.commit()
     conn.close()
-
 
 def add_amendment(data, databse_path):
     project_id = data["project_id"]

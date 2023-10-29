@@ -37,15 +37,16 @@ def tag_list():
 
 
 @app.route("/addProject", methods=["POST"])
-def add_project():
+def add_project_route():
     if request.method == "POST":
         data = request.get_json()
+        print("data: ", data)
         add_project(data, database_path)
         return "OK"
 
 
 @app.route("/addAmendment", methods=["POST"])
-def add_amendment():
+def add_amendment_route():
     if request.method == "POST":
         data = request.get_json()
         add_amendment(data, database_path)

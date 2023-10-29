@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {Box, Chip, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import {FaX, FaXmark} from "react-icons/fa6";
+import TagSelector from "../tagselector";
 
 export default function SearchBar({
                                       tags,
@@ -13,21 +14,6 @@ export default function SearchBar({
                                   }) {
     const handleProjectTypes = (event, newProjectTypes) => {
         setSelectedProjectTypes(newProjectTypes);
-    };
-
-    const handleTagClick = (clickedTag) => {
-        setSelectedTags((previous) => {
-            const arr = [...previous];
-            if (!previous.includes(clickedTag))
-                arr.push(clickedTag);
-            return arr;
-        })
-    };
-
-    const handleTagDelete = (deletedTag) => {
-        setSelectedTags((previous) => {
-            return previous.filter((elem) => elem !== deletedTag);
-        });
     };
 
     return <Grid2 sx={{mt: 2, mb: 2}} container spacing={2}>
@@ -50,16 +36,7 @@ export default function SearchBar({
             </ToggleButtonGroup>
         </Grid2>
         <Grid2 item sm={12}>
-            <Box sx={{width: "100%"}} direction={"row"} gap={1}>
-                {tags.map((tagName) => {
-                    const isSelected = selectedTags.includes(tagName);
-                    return <Chip sx={{mb: 1, mr: 1}} variant={isSelected ? "filled" : "outlined"}
-                                 color={"primary"} label={"#" + tagName}
-                                 key={tagName}
-                                 onClick={isSelected ? undefined : () => handleTagClick(tagName)}
-                                 onDelete={isSelected ? () => handleTagDelete(tagName) : undefined}/>
-                })}
-            </Box>
+            <TagSelector tags={tags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </Grid2>
     </Grid2>;
 }
